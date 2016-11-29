@@ -1,55 +1,36 @@
 package anagrams;
 
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 /**
- * Created by ippon on 17/11/16.
+ * Created by ippon on 22/11/16.
+ * http://codekata.com/kata/kata06-anagrams/
  */
 public class Anagram {
-    public static Boolean isAnagram(String word1, String word2){
-        if(word1.length() != word2.length()){
-            return false;
-        }
-        return isAllLettersInWord(word1, word2);
+    private String word;
+
+    public Anagram(String word){
+        this.word = word;
     }
 
-
-    private static Map<Character, Integer > getLetterRepetitions(String word){
-        Map<Character, Integer> letterRepetitions = new HashMap<Character, Integer>();
-
-        for (char c : word.toCharArray()) {
-            Character letter = new Character(c);
-            if(letterRepetitions.containsKey(letter)){
-               letterRepetitions.put(letter, letterRepetitions.get(letter)+1);
-            }else{
-                letterRepetitions.put(letter, 1);
-            }
-        }
-
-        return letterRepetitions;
+    @Override
+    public boolean equals(Object object){
+        if(object == null) return false;
+        if( !(object instanceof Anagram)) return false;
+        return AnagramUtils.isAnagram(this, (Anagram) object);
     }
 
-    private static Boolean isAllLettersInWord(String word1, String word2){
-        char[] strChar = word2.toCharArray();
-
-        for( int i = strChar.length - 1 ; i >= 0 ; i-- ){
-            if(!isLetterInWord(strChar[i], word1)){
-                return false;
-            }
-        }
-        return true;
+    @Override
+    public int hashCode() {
+        return AnagramUtils.calculateHashCode(this);
     }
 
-    private static Boolean isLetterInWord(char letter, String word){
-        char[] strChar = word.toCharArray();
+    @Override
+    public String toString(){
+        return this.word;
+    }
 
-        for( int i = strChar.length - 1 ; i >= 0 ; i-- ){
-            if(strChar[i] == letter){
-                return true;
-            }
-        }
-        return false;
+    public String getWord(){
+        return this.word;
     }
 }

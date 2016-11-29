@@ -38,6 +38,8 @@ public class WeatherFileDao implements AbstractWeatherDao {
         } catch (IOException | URISyntaxException e) {
             System.err.println("Erreur lors de la recuperation du fichier "+pathToFile + " : " +e.getMessage());
         }
+
+
     }
 
     public Weather getWeather(){
